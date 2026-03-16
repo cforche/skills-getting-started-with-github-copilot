@@ -1,5 +1,5 @@
 import copy
-from urllib.parse import quote_plus
+from urllib.parse import quote
 
 import pytest
 from fastapi.testclient import TestClient
@@ -40,7 +40,7 @@ def test_signup_success():
     activity = "Chess Club"
 
     # Act
-    response = client.post(f"/activities/{quote_plus(activity)}/signup?email={quote_plus(email)}")
+    response = client.post(f"/activities/{quote(activity)}/signup?email={quote(email)}")
 
     # Assert
     assert response.status_code == 200
@@ -54,7 +54,7 @@ def test_signup_duplicate_fails():
     activity = "Chess Club"
 
     # Act
-    response = client.post(f"/activities/{quote_plus(activity)}/signup?email={quote_plus(email)}")
+    response = client.post(f"/activities/{quote(activity)}/signup?email={quote(email)}")
 
     # Assert
     assert response.status_code == 400
@@ -67,7 +67,7 @@ def test_signup_invalid_activity_404():
     activity = "Nonexistent Activity"
 
     # Act
-    response = client.post(f"/activities/{quote_plus(activity)}/signup?email={quote_plus(email)}")
+    response = client.post(f"/activities/{quote(activity)}/signup?email={quote(email)}")
 
     # Assert
     assert response.status_code == 404
@@ -80,7 +80,7 @@ def test_remove_participant_success():
     activity = "Chess Club"
 
     # Act
-    response = client.delete(f"/activities/{quote_plus(activity)}/participants?email={quote_plus(email)}")
+    response = client.delete(f"/activities/{quote(activity)}/participants?email={quote(email)}")
 
     # Assert
     assert response.status_code == 200
@@ -94,7 +94,7 @@ def test_remove_participant_not_found():
     activity = "Chess Club"
 
     # Act
-    response = client.delete(f"/activities/{quote_plus(activity)}/participants?email={quote_plus(email)}")
+    response = client.delete(f"/activities/{quote(activity)}/participants?email={quote(email)}")
 
     # Assert
     assert response.status_code == 404
@@ -107,7 +107,7 @@ def test_remove_from_invalid_activity_404():
     activity = "Nonexistent Activity"
 
     # Act
-    response = client.delete(f"/activities/{quote_plus(activity)}/participants?email={quote_plus(email)}")
+    response = client.delete(f"/activities/{quote(activity)}/participants?email={quote(email)}")
 
     # Assert
     assert response.status_code == 404
